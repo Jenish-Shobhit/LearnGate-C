@@ -1,4 +1,4 @@
-.PHONY: dev test lint seed migrate
+.PHONY: dev test lint seed migrate migrate-down migrate-check
 
 dev:
 	docker compose up -d
@@ -17,4 +17,13 @@ seed:
 	@echo "Seed targets defined per-step (0.2+). Nothing to seed in step 0.1."
 
 migrate:
-	@echo "Alembic migrations defined in step 0.2. Nothing to migrate in step 0.1."
+	@test -f .env.local || (echo "Missing .env.local — run: cp .env.example .env.local" && exit 1)
+	cd apps/api && set -a && source ../../.env.local && set +a && alembic upgrade head
+
+migrate-down:
+	@test -f .env.local || (echo "Missing .env.local — run: cp .env.example .env.local" && exit 1)
+	cd apps/api && set -a && source ../../.env.local && set +a && alembic downgrade base
+
+migrate-check:
+	@test -f .env.local || (echo "Missing .env.local — run: cp .env.example .env.local" && exit 1)
+	cd apps/api && set -a && source ../../.env.local && set +a && alembic check
