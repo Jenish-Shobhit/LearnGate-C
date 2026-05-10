@@ -1,4 +1,4 @@
-# LearnGate-C
+# LearnGate-C ( Still in development) 
 
 Agentic CAT-prep platform — adaptive diagnostics, personalized study plans, Socratic tutor, and PYQ-grounded learning.
 
