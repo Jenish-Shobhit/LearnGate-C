@@ -39,6 +39,14 @@ htmlcov/
 *.suo
 *.user
 
+# Claude Code
+.claude/settings.local.json
+
+# Python caches (nested)
+**/.mypy_cache/
+**/.pytest_cache/
+**/.ruff_cache/
+
 # Docker
 .docker/
 
