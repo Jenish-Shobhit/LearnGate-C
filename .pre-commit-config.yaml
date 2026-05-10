@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        args: ["--config-file=apps/api/mypy.ini"]
+        files: ^apps/api/
+        additional_dependencies:
+          - pydantic
+          - pydantic-settings
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        language: node
+        entry: pnpm --filter @learngate/web eslint
+        files: \.(ts|tsx)$
+      - id: tsc
+        name: tsc
+        language: node
+        entry: pnpm --filter @learngate/web tsc --noEmit
+        pass_filenames: false
